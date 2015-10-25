@@ -16,6 +16,7 @@ if (file_exists($cacheFile) && (filemtime($cacheFile) < time() - 600)) {
 
     $posts = array();
     $filteredPosts = array();
+    $existingTitlesArray = array();
 
     $keywordsPositive = array('php', 'laravel', 'slim', 'silex', 'aws', 'api', 'data');
     $keywordsNegative = array('seo');
@@ -65,6 +66,8 @@ if (file_exists($cacheFile) && (filemtime($cacheFile) < time() - 600)) {
             $post['data']['score'] = $score;
 
             $filteredPosts[] = $post['data'];
+
+            $existingTitlesArray[] = $postTitle;
         }
     }
 
@@ -74,5 +77,3 @@ if (file_exists($cacheFile) && (filemtime($cacheFile) < time() - 600)) {
 }
 
 echo $filteredPostsJson;
-
-include 'analytics.php';
