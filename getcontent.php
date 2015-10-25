@@ -74,3 +74,5 @@ if (file_exists($cacheFile) && (filemtime($cacheFile) < time() - 600)) {
 }
 
 echo $filteredPostsJson;
+
+include 'analytics.php';
