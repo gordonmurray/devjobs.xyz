@@ -1,2 +1,2 @@
 # devjobs.xyz
-A single page app to show potential dev jobs
+A simple single page app to show dev jobs from several sources
