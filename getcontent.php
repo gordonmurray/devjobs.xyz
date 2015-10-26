@@ -32,28 +32,28 @@ if (file_exists($cacheFile) && (filemtime($cacheFile) < time() - 600)) {
 
         $score = 0;
         $postTitle = $post['data']['title'];
-        $postHTMLText = html_entity_decode($post['data']['selftext_html']);
+        $postContent = $post['data']['selftext'];
         $postCreated = date("d/m/Y H:ia", $post['data']['created_utc']);
 
         if (stristr($postTitle, 'Hiring') == TRUE) {
 
-            $postTitle = strtolower($postTitle);
-            $postHTMLText = strtolower($postHTMLText);
+            $postTitleLower = strtolower($postTitle);
+            $postContentLower = strtolower($postContent);
 
             foreach ($keywordsPositive as $keyword) {
-                if (stristr($postTitle, $keyword) == true) {
+                if (stristr($postTitleLower, $keyword) == true) {
                     $score++;
                 }
-                if (stristr($postHTMLText, $keyword) == true) {
+                if (stristr($postHTMLTextLower, $keyword) == true) {
                     $score++;
                 }
             }
 
             foreach ($keywordsNegative as $keyword) {
-                if (stristr($postTitle, $keyword) == true) {
+                if (stristr($postTitleLower, $keyword) == true) {
                     $score--;
                 }
-                if (stristr($postHTMLText, $keyword) == true) {
+                if (stristr($postHTMLTextLower, $keyword) == true) {
                     $score--;
                 }
             }
@@ -61,7 +61,7 @@ if (file_exists($cacheFile) && (filemtime($cacheFile) < time() - 600)) {
             $postTitle = str_replace($keywordsStrip, '', $postTitle);
 
             $post['data']['title'] = $postTitle;
-            $post['data']['text'] = strip_tags($postHTMLText);
+            $post['data']['text'] = $postContent;
             $post['data']['created'] = $postCreated;
             $post['data']['score'] = $score;
 
@@ -75,5 +75,7 @@ if (file_exists($cacheFile) && (filemtime($cacheFile) < time() - 600)) {
 
     file_put_contents($cacheFile, $filteredPostsJson);
 }
+
+//print_r(json_decode($filteredPostsJson, TRUE));
 
 echo $filteredPostsJson;

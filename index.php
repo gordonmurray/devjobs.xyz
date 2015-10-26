@@ -40,21 +40,21 @@
     <div class="container-fluid">
 
         <div class="row">
-            <h1>A list of new software development opportunities from several sources</h1>
+            <h1>A list of new small software development jobs from several sources</h1>
         </div>
 
-        <div class="row" ng-repeat="post in mydata |orderBy:'-score'">
+        <div class="row" ng-repeat="post in redditPosts">
 
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h4><span class="label label-primary">{{post.score}}</span> {{post.title}}
-                        <small><a href="http://reddit.com/u/{{post.author}}" target="_blank">{{post.author}}</a> at
-                            {{post.created}}
+                        <small>by <a href="http://reddit.com/u/{{post.author}}" target="_blank">{{post.author}}</a> at
+                            {{post.created}} (UTC)
                         </small>
                     </h4>
                 </div>
                 <div class="panel-body">
-                    {{post.text}} <br/>
+                    {{post.selftext}} <br/>
                     <a href="{{post.url}}" target="_blank" class="btn btn-success btn-xs">Open</a>
                 </div>
             </div>
