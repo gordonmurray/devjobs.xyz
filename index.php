@@ -47,7 +47,7 @@
 
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h4><span class="label label-primary">{{post.score}}</span> {{post.title}}
+                    <h4>{{post.title}}
                         <small>by <a href="http://reddit.com/u/{{post.author}}" target="_blank">{{post.author}}</a> at
                             {{post.created}} (UTC)
                         </small>
