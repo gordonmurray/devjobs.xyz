@@ -3,7 +3,7 @@
 $cacheFile = 'cache/filteredPosts.json';
 
 // first, check for a recent local copy
-if (file_exists($cacheFile) && (filemtime($cacheFile) < time() - 600)) {
+if (file_exists($cacheFile) && filesize($cacheFile) > 2 && (filemtime($cacheFile) > (time() - 600))) {
 
     $filteredPostsJson = file_get_contents($cacheFile);
 
@@ -20,12 +20,13 @@ if (file_exists($cacheFile) && (filemtime($cacheFile) < time() - 600)) {
 
     $keywordsPositive = array('php', 'laravel', 'slim', 'silex', 'aws', 'api', 'data');
     $keywordsNegative = array('seo');
-    $keywordsStrip = array('[hiring]');
+    $keywordsStrip = array('[hiring]','[Hiring]','[HIRING]');
 
     foreach ($sources as $source) {
         $contentJson = file_get_contents($source);
         $contentArray = json_decode($contentJson, TRUE);
-        $posts = array_merge($posts, $contentArray['data']['children']);
+        $newPosts = $contentArray['data']['children'];
+        $posts = array_merge($posts, $newPosts);
     }
 
     foreach ($posts as $post) {
@@ -44,16 +45,10 @@ if (file_exists($cacheFile) && (filemtime($cacheFile) < time() - 600)) {
                 if (stristr($postTitleLower, $keyword) == true) {
                     $score++;
                 }
-                if (stristr($postHTMLTextLower, $keyword) == true) {
-                    $score++;
-                }
             }
 
             foreach ($keywordsNegative as $keyword) {
                 if (stristr($postTitleLower, $keyword) == true) {
-                    $score--;
-                }
-                if (stristr($postHTMLTextLower, $keyword) == true) {
                     $score--;
                 }
             }
