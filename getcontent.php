@@ -3,7 +3,7 @@
 $cacheFile = 'cache/filteredPosts.json';
 
 // first, check for a recent local copy
-if (file_exists($cacheFile) && filesize($cacheFile) > 2 && (filemtime($cacheFile) > (time() - 600))) {
+if (file_exists($cacheFile) && filesize($cacheFile) > 2 && (filemtime($cacheFile) > (time() - 300))) {
 
     $filteredPostsJson = file_get_contents($cacheFile);
 
