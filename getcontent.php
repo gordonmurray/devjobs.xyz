@@ -1,6 +1,6 @@
 <?php
 
-$cacheFile = 'cache/filteredPosts.json';
+$cacheFile = __DIR__ . '/cache/filteredPosts.json';
 
 $sources = array(
     'https://www.reddit.com/r/forhire/new.json',
